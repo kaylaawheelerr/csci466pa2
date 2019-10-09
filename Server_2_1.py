@@ -36,8 +36,8 @@ if __name__ == '__main__':
     rdt = RDT_2_1.RDT_2_1('server', None, args.port)
     while(True):
         #try to receiver message before timeout
-        msg_S = rdt.rdt_2_1_receive()
-        if msg_S is None:
+        message_string = rdt.rdt_2_1_receive()
+        if message_string is None:
             if time_of_last_data + timeout < time.time():
                 break
             else:
@@ -45,9 +45,9 @@ if __name__ == '__main__':
         time_of_last_data = time.time()
         
         #convert and reply
-        rep_msg_S = piglatinize(msg_S)
-        print('Converted %s \nto \n%s\n' % (msg_S, rep_msg_S))
-        rdt.rdt_2_1_send(rep_msg_S)
+        reply_message_string = piglatinize(message_string)
+        print('Converted %s \nto \n%s\n' % (message_string, reply_message_string))
+        rdt.rdt_2_1_send(reply_message_string)
         
     rdt.disconnect()
 
